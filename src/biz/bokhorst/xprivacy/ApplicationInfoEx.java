@@ -29,7 +29,8 @@ import android.util.SparseArray;
 
 @SuppressLint("DefaultLocale")
 public class ApplicationInfoEx implements Comparable<ApplicationInfoEx> {
-	private int mUid;
+//	private int mUid;
+	public int mUid;
 	private TreeMap<String, ApplicationInfo> mMapAppInfo = null;
 	private Map<String, PackageInfo> mMapPkgInfo = new HashMap<String, PackageInfo>();
 
@@ -49,12 +50,13 @@ public class ApplicationInfoEx implements Comparable<ApplicationInfoEx> {
 		PackageManager pm = context.getPackageManager();
 		String[] packages = pm.getPackagesForUid(uid);
 		if (packages != null)
-			for (String packageName : packages)
+			for (String packageName : packages){
 				try {
 					ApplicationInfo appInfo = pm.getApplicationInfo(packageName, 0);
 					mMapAppInfo.put(pm.getApplicationLabel(appInfo).toString(), appInfo);
 				} catch (NameNotFoundException ignored) {
 				}
+			}
 	}
 
 	public static List<ApplicationInfoEx> getXApplicationList(Context context, ProgressDialog dialog) {

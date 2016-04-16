@@ -150,6 +150,7 @@ public class PrivacyService extends IPrivacyService.Stub {
 			// Requires this in /service_contexts
 			// xprivacy453 u:object_r:system_server_service:s0
 
+			
 			Class<?> cServiceManager = Class.forName("android.os.ServiceManager", false, classLoader);
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
 				Method mAddService = cServiceManager.getDeclaredMethod("addService", String.class, IBinder.class,

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Translators: do not include texts with translatable="false" -->
@@ -28,6 +29,7 @@
     <string name="menu_help">Help &#8230;</string>
     <string name="menu_select_all">Select all</string>
     <string name="menu_sort">Sort</string>
+    <string name="menu_contexts">Contexts</string>
     <string name="menu_filter">Filter</string>
     <string name="menu_all">All</string>
     <string name="menu_toggle">Toggle restrictions</string>
@@ -268,5 +270,8 @@ however it is impossible to guarantee it will work flawlessly on each and every 
     <string name="permission_manage">Manage applications, including killing</string>
     <string name="permission_restrictions">Manage XPrivacy restrictions and settings</string>
     <string name="fingerprint" translatable="false">10620ae961d78854f6c9cd872c4388232849c799</string>
+    <string name="title_activity_activity_contexts">ActivityContexts</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

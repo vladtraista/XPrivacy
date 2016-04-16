@@ -198,7 +198,11 @@ public class ActivityMain extends ActivityBase implements OnItemSelectedListener
 		// Get localized restriction name
 		List<String> listRestrictionName = new ArrayList<String>(PrivacyManager.getRestrictions(this).navigableKeySet());
 		listRestrictionName.add(0, getString(R.string.menu_all));
-
+		
+		// These are the data categories that can be restricted
+		for (String s: listRestrictionName)
+			Log.v("XPrivacy", s);
+		
 		// Build spinner adapter
 		SpinnerAdapter spAdapter = new SpinnerAdapter(this, android.R.layout.simple_spinner_item);
 		spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -422,6 +426,7 @@ public class ActivityMain extends ActivityBase implements OnItemSelectedListener
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+		Log.v("XPrivacy", "Selected position" + Integer.toString(pos));
 		selectRestriction(pos);
 	}
 
@@ -594,6 +599,9 @@ public class ActivityMain extends ActivityBase implements OnItemSelectedListener
 	public boolean onOptionsItemSelected(MenuItem item) {
 		try {
 			switch (item.getItemId()) {
+			case R.id.menu_contexts:
+				optionContexts();
+				return true;
 			case R.id.menu_sort:
 				optionSort();
 				return true;
@@ -663,6 +671,11 @@ public class ActivityMain extends ActivityBase implements OnItemSelectedListener
 		}
 	}
 
+	private void optionContexts(){
+		Intent intent = new Intent(this, ActivityContexts.class);
+		startActivity(intent);
+	}
+	
 	@SuppressLint("InflateParams")
 	private void optionSort() {
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -1644,8 +1657,9 @@ public class ActivityMain extends ActivityBase implements OnItemSelectedListener
 		}
 
 		public List<ApplicationInfoEx> getSelectedOrVisible(int flags) {
-			if (mListAppSelected.size() > 0)
+			if (mListAppSelected.size() > 0){
 				return mListAppSelected;
+			}
 			else {
 				if (flags == cSelectAppAll)
 					return mListAppAll;
@@ -1830,6 +1844,7 @@ public class ActivityMain extends ActivityBase implements OnItemSelectedListener
 					results.count = lstApp.size();
 				}
 
+				Log.v("XPrivacyyy", "Results count " + results.count);
 				return results;
 			}
 
@@ -1925,6 +1940,7 @@ public class ActivityMain extends ActivityBase implements OnItemSelectedListener
 
 			public HolderTask(int thePosition, ViewHolder theHolder, ApplicationInfoEx theAppInfo) {
 				position = thePosition;
+				Log.v("XPrivacy", Integer.toString(theAppInfo.mUid));
 				holder = theHolder;
 				xAppInfo = theAppInfo;
 			}
@@ -2086,8 +2102,10 @@ public class ActivityMain extends ActivityBase implements OnItemSelectedListener
 										});
 								AlertDialog alertDialog = alertDialogBuilder.create();
 								alertDialog.show();
-							} else
+							} else {
+								Log.v("XPrivacy", "Toggle restrictions");
 								toggleRestrictions();
+							}
 						}
 					});
 
@@ -2188,10 +2206,11 @@ public class ActivityMain extends ActivityBase implements OnItemSelectedListener
 						holder.imgCbAsk.setImageBitmap(getAskBoxImage(rstate, methodExpert));
 
 						// Notify restart
-						if (!newState.equals(oldState))
+						if (!newState.equals(oldState)){
+							Log.v("XPrivacy", "Restart");
 							Toast.makeText(ActivityMain.this, getString(R.string.msg_restart), Toast.LENGTH_LONG)
 									.show();
-
+						}
 						// Display new state
 						showState();
 
@@ -2269,6 +2288,7 @@ public class ActivityMain extends ActivityBase implements OnItemSelectedListener
 			});
 
 			// Listen for application selection
+			// Here the application selection is done
 			holder.llName.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(final View view) {
@@ -2287,6 +2307,7 @@ public class ActivityMain extends ActivityBase implements OnItemSelectedListener
 						Intent intentSettings = new Intent(ActivityMain.this, ActivityApp.class);
 						intentSettings.putExtra(ActivityApp.cUid, xAppInfo.getUid());
 						intentSettings.putExtra(ActivityApp.cRestrictionName, mRestrictionName);
+						Log.i("XPrivacy", "Selected application with UID=" + xAppInfo.getUid());
 						ActivityMain.this.startActivity(intentSettings);
 					}
 				}

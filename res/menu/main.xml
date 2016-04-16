@@ -56,6 +56,9 @@
     <item
         android:id="@+id/menu_settings"
         android:title="@string/menu_settings"/>
+    <item 
+        android:id="@+id/menu_contexts"
+        android:title="@string/menu_contexts"/>
     <item android:title="@string/menu_help">
         <menu>
             <item
